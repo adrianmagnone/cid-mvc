@@ -20,11 +20,13 @@ class ViewHtml implements IView
 
 	function __construct()
 	{
+		$viewFolder = ROOT . DS . APP_DIR . '/Views';
+
 		$this->generator = new Smarty();
-		$this->generator->setTemplateDir(ROOT . DS . APP_DIR . '/Views');
-		$this->generator->setCompileDir(ROOT . DS . APP_DIR . '/Views/templates_c');
-        $this->generator->setCacheDir(ROOT . DS . APP_DIR . '/Views/cache');
-        $this->generator->setConfigDir(ROOT . DS . APP_DIR . '/Views/configs');
+		$this->generator->setTemplateDir($viewFolder);
+		$this->generator->setCompileDir("{$viewFolder}/templates_c");
+        $this->generator->setCacheDir("{$viewFolder}/cache");
+        $this->generator->setConfigDir("{$viewFolder}/configs");
 	}
 
 	public function setResponse(ResponseInterface $response)

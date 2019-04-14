@@ -2,6 +2,7 @@
 namespace Cid\Factory;
 
 use Cid\Factory\IFactory;
+use Cid\Config;
 
 class FactoryModels implements IFactory
 {
@@ -9,9 +10,15 @@ class FactoryModels implements IFactory
 	{
 		try
 		{
-			$modelname = $name;
-			$model = new $modelname();
-			return $model;
+			$namespace = Config::get('MODEL_NAMESPACE');
+			$modelname = "{$namespace}$name";
+
+			if (class_exists($modelname))
+			{
+				$model = new $modelname();
+				return $model;
+			}
+			return false;
 		}
 		catch (Exception $e)
 		{

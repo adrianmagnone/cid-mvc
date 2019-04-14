@@ -19,7 +19,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Cid": "src/"
+            "Cid": "src/",
+            "Test": "pagetest/"
         }
     }
 }

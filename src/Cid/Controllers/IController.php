@@ -14,8 +14,8 @@ interface IController
 	function setContentToPlainText();
 	function getUrlBase();
 	function setFactoryModels(IFactory $factory);
-	function createModel($name);
+	function model($name);
 	function setFactoryViews(IFactory $factory);
-	function createView($name);
+	function view($name);
 	function getParam($name);
 }

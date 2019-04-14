@@ -56,34 +56,47 @@ class Controller implements IController
 		return $this->view->render($name_view);
 	}
 
-	public function set($name, $value)
+	public function set($name, $value = false)
 	{
+		if (is_array($name))
+		{
+			$this->setArray($name);
+			return;
+		}
 		$this->vars[$name] = $value;
+	}
+
+	private function setArray(Array $data)
+	{
+		foreach ($data as $key => $value)
+		{
+			$this->vars[$key] = $value;
+		}
 	}
 
 	public function setContentToHtml()
 	{
-		$this->view = $this->createView('Html');
+		$this->view = $this->view('Html');
 	}
 
 	public function setContentToHtmlWithCache()
 	{
-		$this->view = $this->createView('HtmlCache');
+		$this->view = $this->view('HtmlCache');
 	}
 
 	public function setContentToJson()
 	{
-		$this->view = $this->createView('Json');
+		$this->view = $this->view('Json');
 	}
 
 	public function setContentToPlainText()
 	{
-		$this->view = $this->createView('Text');
+		$this->view = $this->view('Text');
 	}
 
 	public function setContentToXml()
 	{
-		$this->view = $this->createView('Xml');
+		$this->view = $this->view('Xml');
 	}
 
 	private function assignVarsToView()
@@ -116,7 +129,7 @@ class Controller implements IController
 		$this->factoryModels = $factory;
 	}
 
-	public function createModel($name)
+	public function model($name)
 	{
 		if (! $this->factoryModels)
 		{
@@ -131,7 +144,7 @@ class Controller implements IController
 		$this->factoryViews = $factory;
 	}
 
-	public function createView($name)
+	public function view($name)
 	{
 		if (! $this->factoryViews)
 		{
